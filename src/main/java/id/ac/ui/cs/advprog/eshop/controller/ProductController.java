@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import java.util.List;
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/")
 public class ProductController {
     @Autowired
     private ProductService service;
@@ -34,7 +34,7 @@ public class ProductController {
         return "redirect:list";
     }
 
-    @GetMapping("/list")
+    @GetMapping("/")
     public String productListPage(Model model) {
         List<Product> allProducts = service.findAll();
         model.addAttribute("products", allProducts);
@@ -44,13 +44,13 @@ public class ProductController {
     @GetMapping("/delete/{productId}")
     public String deleteProduct(@PathVariable String productId) {
         service.deleteProductById(productId);
-        return "redirect:/product/list";
+        return "redirect:/";
     }
 
     @PostMapping("/edit")
     public String edit(@ModelAttribute Product product) {
         service.editProduct(product);
-        return "redirect:list";
+        return "redirect:/";
     }
 
     @GetMapping("/edit/{productId}")
