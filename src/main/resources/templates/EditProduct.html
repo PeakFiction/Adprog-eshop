@@ -18,7 +18,7 @@
 <div class="container">
     <h3 class="mb-4">Edit Product</h3>
 
-    <form th:action="@{/product/edit}" th:object="${product}" method="post">
+    <form th:action="@{/edit}" th:object="${product}" method="post">
         <input type="hidden" th:field="*{productId}" />
 
         <div class="form-group row">
