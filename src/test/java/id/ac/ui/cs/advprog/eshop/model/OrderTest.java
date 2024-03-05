@@ -18,14 +18,13 @@ public class OrderTest {
         product1.setProductName("Sampo Cap Bambang");
         product1.setProductQuantity(2);
 
-        Product product2 = new Product();
-        product1.setProductId("a2c62328-4a37-4664-83c7-f32db8620155");
-        product1.setProductName("Sabun Cap Usep");
-        product1.setProductQuantity(1);
+        Product product2 = new Product();  // Corrected variable name from product1 to product2
+        product2.setProductId("a2c62328-4a37-4664-83c7-f32db8620155");  // Corrected setter method calls
+        product2.setProductName("Sabun Cap Usep");
+        product2.setProductQuantity(1);  // Corrected setter method calls
 
         this.products.add(product1);
         this.products.add(product2);
-
     }
 
     @Test
