@@ -5,6 +5,8 @@ import id.ac.ui.cs.advprog.eshop.model.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import id.ac.ui.cs.advprog.eshop.model.Order;
+
 
 
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ class OrderRepositoryTest {
         Order order1 = new Order("13652556-012a-4c07-b546-54eb1396d79b", products, 1708560000L, "Safira Sudrajat");
         orders.add(order1);
 
-        Order oder2 = new Order("7f9e15bb-4b15-424f-aebc-c3af385fb078", products, 1708570000L, "Safira Sudrajat");
+        Order order2 = new Order("7f9e15bb-4b15-424f-aebc-c3af385fb078", products, 1708570000L, "Safira Sudrajat");
         orders.add(order2);
 
         Order order3 = new Order("e334ef40-9eff-4da8-9487-8ee697ecbf1e", products, 1708570000L, "Bambang Sudrajat");
