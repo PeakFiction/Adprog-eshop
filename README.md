@@ -40,3 +40,8 @@ Link: https://adprog-eshop-infinitum-peakfiction.koyeb.app/
     - Non-SOLID projects won’t be as easy to test. Creating tests for it would also be hard, leading to more complex and brittle test scenarios.
 - Not as Reusable:
     - Codebase that doesn’t follow SOLID may suffer from poor modularity, reducing its chances and opportunities for its codes to be reused. Meaning, duplicated code, and increased development effort in the future.
+
+# Reflection 3
+1. TDD Flow Reflection: The TDD flow has been useful for ensuring code functionality, but improvements can be made. Next time, I'll focus on breaking down requirements into smaller tasks and writing tests for each, ensuring better coverage and clearer objectives.
+
+2. F.I.R.S.T. Principle Reflection: The tests have partially followed the F.I.R.S.T. principle, but there's room for improvement. Next time, I'll focus on making tests more independent, ensuring they run in any order, and refining assertions for clearer feedback.
