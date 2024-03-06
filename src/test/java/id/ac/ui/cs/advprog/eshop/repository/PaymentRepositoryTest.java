@@ -1,73 +1,95 @@
 package id.ac.ui.cs.advprog.eshop.repository;
 
+import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.HashMap;
+import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PaymentRepositoryTest {
 
-    @Mock
     private PaymentRepository paymentRepository;
-
-    @InjectMocks
-    private PaymentServiceImpl paymentService;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.initMocks(this);
+        paymentRepository = new PaymentRepository();
     }
 
     @Test
-    void testSavePayment() {
-        Payment payment = new Payment("1", "voucherCode", null);
-        when(paymentRepository.save(payment)).thenReturn(payment);
+    void testAddPayment() {
+        // Given
+        String orderId = "orderId";
+        String method = "voucherCode";
+        Map<String, String> paymentData = new HashMap<>();
+        paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
-        Payment savedPayment = paymentService.addPayment(payment);
-        assertEquals(payment, savedPayment);
+        // When
+        Payment payment = paymentRepository.addPayment(orderId, method, paymentData);
 
-        verify(paymentRepository, times(1)).save(payment);
+        // Then
+        assertNotNull(payment);
+        assertEquals(orderId, payment.getId());
+        assertEquals(method, payment.getMethod());
+        assertEquals("SUCCESS", payment.getStatus());
+        assertEquals(paymentData, payment.getPaymentData());
     }
 
     @Test
-    void testSetPaymentStatus() {
-        Payment payment = new Payment("1", "voucherCode", null);
-        payment.setStatus("SUCCESS");
-        when(paymentRepository.findById("1")).thenReturn(Optional.of(payment));
+    void testGetPayment() {
+        // Given
+        String orderId = "orderId";
+        String method = "voucherCode";
+        Map<String, String> paymentData = new HashMap<>();
+        paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
-        Payment updatedPayment = paymentService.setStatus("1", "SUCCESS");
-        assertEquals("SUCCESS", updatedPayment.getStatus());
-        verify(paymentRepository, times(1)).save(payment);
-    }
+        Payment addedPayment = paymentRepository.addPayment(orderId, method, paymentData);
 
-    @Test
-    void testGetPaymentById() {
-        Payment payment = new Payment("1", "voucherCode", null);
-        when(paymentRepository.findById("1")).thenReturn(Optional.of(payment));
+        // When
+        Payment retrievedPayment = paymentRepository.getPayment(addedPayment.getId());
 
-        Optional<Payment> optionalPayment = paymentService.getPayment("1");
-        assertEquals(payment, optionalPayment.orElse(null));
+        // Then
+        assertNotNull(retrievedPayment);
+        assertEquals(addedPayment, retrievedPayment);
     }
 
     @Test
     void testGetAllPayments() {
-        List<Payment> payments = new ArrayList<>();
-        payments.add(new Payment("1", "voucherCode", null));
-        payments.add(new Payment("2", "bankTransfer", null));
-        when(paymentRepository.findAll()).thenReturn(payments);
+        // Given
+        String orderId1 = "orderId1";
+        String method1 = "voucherCode";
+        Map<String, String> paymentData1 = new HashMap<>();
+        paymentData1.put("voucherCode", "ESHOP1234ABC5678");
 
-        List<Payment> allPayments = paymentService.getAllPayments();
-        assertEquals(2, allPayments.size());
-        assertEquals(payments.get(0), allPayments.get(0));
-        assertEquals(payments.get(1), allPayments.get(1));
+        Payment payment1 = paymentRepository.addPayment(orderId1, method1, paymentData1);
+
+        String orderId2 = "orderId2";
+        String method2 = "bankTransfer";
+        Map<String, String> paymentData2 = new HashMap<>();
+        paymentData2.put("bankName", "BCA");
+        paymentData2.put("referenceCode", "1234567890");
+
+        Payment payment2 = paymentRepository.addPayment(orderId2, method2, paymentData2);
+
+        // When
+        Iterable<Payment> allPayments = paymentRepository.getAllPayments();
+
+        // Then
+        assertNotNull(allPayments);
+        assertTrue(allPayments.iterator().hasNext());
+        assertTrue(containsPayment(allPayments, payment1));
+        assertTrue(containsPayment(allPayments, payment2));
+    }
+
+    private boolean containsPayment(Iterable<Payment> payments, Payment payment) {
+        for (Payment p : payments) {
+            if (p.getId().equals(payment.getId())) {
+                return true;
+            }
+        }
+        return false;
     }
 }
