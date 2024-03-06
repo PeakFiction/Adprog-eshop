@@ -80,7 +80,7 @@ public class PaymentTest {
     @Test
     void testCreatePaymentByBankTransferEmptyBankName() {
         Map<String, String> paymentData = Map.of(
-                "bankName", "MANDIRI",
+                "bankName", "",
                 "referenceCode", "2e785519-4fb0-40ce-b5ea-a2a22712a8e6"
         );
         Payment payment = createPayment("8c4a1012-40d5-4135-a719-0be0c2793c58", "bankTransfer", paymentData);
@@ -90,7 +90,7 @@ public class PaymentTest {
     @Test
     void testCreatePaymentByBankTransferNullBankName() {
         Map<String, String> paymentData = Map.of(
-                "bankName", null,
+                "bankName", "",
                 "referenceCode", "2e785519-4fb0-40ce-b5ea-a2a22712a8e6"
         );
         Payment payment = createPayment("8c4a1012-40d5-4135-a719-0be0c2793c58", "bankTransfer", paymentData);
@@ -111,7 +111,7 @@ public class PaymentTest {
     void testCreatePaymentByBankTransferNullReferenceCode() {
         Map<String, String> paymentData = Map.of(
                 "bankName", "MANDIRI",
-                "referenceCode", null
+                "referenceCode", ""
         );
         Payment payment = createPayment("8c4a1012-40d5-4135-a719-0be0c2793c58", "bankTransfer", paymentData);
         assertPaymentRejected(payment);
