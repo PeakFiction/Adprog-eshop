@@ -11,7 +11,17 @@ public class Payment {
     private final String method;
     private String status;
     private final Map<String, String> paymentData;
+    private Order order; // Add this field
 
+
+    // Add this method
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
     public Payment(String id, String method, Map<String,String> paymentData) {
         if (method.equals("voucherCode")) {
             payWithVoucher(paymentData);
