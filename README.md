@@ -42,6 +42,48 @@ Link: https://adprog-eshop-infinitum-peakfiction.koyeb.app/
     - Codebase that doesn’t follow SOLID may suffer from poor modularity, reducing its chances and opportunities for its codes to be reused. Meaning, duplicated code, and increased development effort in the future.
 
 # Reflection 3
-1. TDD Flow Reflection: The TDD flow has been useful for ensuring code functionality, but improvements can be made. Next time, I'll focus on breaking down requirements into smaller tasks and writing tests for each, ensuring better coverage and clearer objectives.
+1. Percival's Questions
 
-2. F.I.R.S.T. Principle Reflection: The tests have partially followed the F.I.R.S.T. principle, but there's room for improvement. Next time, I'll focus on making tests more independent, ensuring they run in any order, and refining assertions for clearer feedback.
+**Do I have enough functional tests to reassure myself that my application really works, from the point of view of the user?**
+There's always room for improvement as you will never know which tests cover which certain situations or cases that we didn't take account for. Although at the moment, these functional tests should suffice as a surface-level starter.
+
+**Am I testing all the edge cases thoroughly?**
+From what I did, I should have been testing all the edge cases thoroughly, such as testing for valid or invalid voucher codes, setting payment statuses and whatnot. Albeit, there is room for improvement, always. But it is also good to remember that thinking of all possible edge cases is challenging, which is why user's feedback would be very helpful.
+
+**Do I have tests that check whether all my components fit together properly? Could some integrated tests do this, or are functional tests enough?**
+I have made individual unit tests for individual components such as PaymentService and PaymentRepository. I am sure that these will work in an isolated environment. Although, I may have not properly test it if they will work together in a complete and integrated environment. Functional tests might work to give some assurance that the components are working together properly, but they might not cover all integration scenarios in detail. They're essential, but not sufficient enough on their own.
+
+**Are my tests giving me the confidence to refactor my code, fearlessly and frequently?**
+I'd like to think that these tests are well made enough such that if I were to refactor my code, I can do it effortlessly, fearlessly and frequently. By having a suite of tests, I'd be able to make changes and refactor the code, without making much of a mess to my original codebase. If there are errors, the plethora of tests will be able to detect it.
+
+**Are my tests helping me to drive out a good design? If I have a lot of integration tests but less unit tests, do I need to make more unit tests to get better feedback on my code design?**
+Yes, having more unit tests would provide better feedback on individual components, guiding a more modular and maintainable design.
+
+**Are my feedback cycles as fast as I would like them? When do I get warned about bugs, and is there any practical way to make that happen sooner?**
+The feedback cycles could be faster, especially if bugs are discovered late in the development process. Writing more focused unit tests and automating test execution can help detect bugs sooner.
+
+**Is there some way that I could write faster integration tests that would get me feedback quicker?**
+Optimizing the setup and teardown process for integration tests and using mock objects or test doubles can help reduce execution time and provide quicker feedback.
+
+**Can I run a subset of the full test suite when I need to?**
+Yes, by organizing tests into categories or groups and using test runners or frameworks that support selective test execution, one would be able to run specific subsets of the test suite as needed.
+
+**Am I spending too much time waiting for tests to run, and thus less time in a productive flow state?**
+Although the tests doesn't take too long for it to finish running. If they do practicing a parallel test execution, optimising test setup and teardown, and using test isolation techniques can help reduce waiting time for the tests.
+
+
+
+
+
+
+
+
+
+
+2. F.I.R.S.T. Principle Reflection:
+As per FIRST, they should be implemented properly as they're:
+- Fast: My tests execute quickly, which is crucial for maintaining a fast feedback loop during development.
+- Isolated: Each test is isolated from the others, meaning they don't depend on each other's state or execution order. However, I could further enhance isolation by using more mocks or stubs to isolate dependencies completely.
+- Repeatable: My tests should produce the same results each time they are run. I have achieved this by using fixed inputs and mocks/stubs for external dependencies. However, I need to ensure that my tests are not affected by external factors such as environment configuration.
+- Self-validating: My tests assert the expected behavior of the code, providing clear pass/fail feedback. However, I could improve the readability of my test assertions by using more descriptive messages.
+- Timely: I have written tests alongside the development of my code, which ensures that any issues are identified early. However, I need to ensure that I continue to maintain and update my tests as the codebase evolves

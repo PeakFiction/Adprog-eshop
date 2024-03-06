@@ -26,8 +26,6 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setOrder(order); // Set the order for the payment
         if (method.equals("voucherCode")) {
             validateVoucherCode(payment);
-        } else if (method.equals("cashOnDelivery")) {
-            validateCashOnDelivery(payment);
         } else if (method.equals("bankTransfer")) {
             validateBankTransfer(payment);
         } else {
@@ -41,17 +39,6 @@ public class PaymentServiceImpl implements PaymentService {
         Map<String, String> paymentData = payment.getPaymentData();
         String voucherCode = paymentData.get("voucherCode");
         if (voucherCode == null || voucherCode.length() != 16 || !voucherCode.startsWith("ESHOP") || !voucherCode.matches("[0-9]+")) {
-            payment.setStatus(PaymentStatus.REJECTED.getValue());
-        } else {
-            payment.setStatus(PaymentStatus.SUCCESS.getValue());
-        }
-    }
-
-    private void validateCashOnDelivery(Payment payment) {
-        Map<String, String> paymentData = payment.getPaymentData();
-        String address = paymentData.get("address");
-        String deliveryFee = paymentData.get("deliveryFee");
-        if (address == null || address.isEmpty() || deliveryFee == null || deliveryFee.isEmpty()) {
             payment.setStatus(PaymentStatus.REJECTED.getValue());
         } else {
             payment.setStatus(PaymentStatus.SUCCESS.getValue());
