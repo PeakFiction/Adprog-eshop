@@ -7,23 +7,24 @@ import java.util.Map;
 
 public class PaymentRepository {
 
-    private final Map<String, Payment> paymentMap;
+    private Map<String, Payment> payments;
 
     public PaymentRepository() {
-        this.paymentMap = new HashMap<>();
+        this.payments = new HashMap<>();
     }
 
     public Payment addPayment(String orderId, String method, Map<String, String> paymentData) {
         Payment payment = new Payment(orderId, method, paymentData);
-        paymentMap.put(payment.getId(), payment);
+        payment.setStatus("SUCCESS");
+        payments.put(payment.getId(), payment);
         return payment;
     }
 
     public Payment getPayment(String paymentId) {
-        return paymentMap.get(paymentId);
+        return payments.get(paymentId);
     }
 
     public Iterable<Payment> getAllPayments() {
-        return paymentMap.values();
+        return payments.values();
     }
 }
